@@ -7,6 +7,8 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 "add for me
+Bundle 'ctrlp.vim'
+Bundle 'AutoClose'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'a.vim'
@@ -23,6 +25,8 @@ filetype plugin indent on
 
 let g:clang_auto_select=1
 let g:clang_complete_copen=1
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
 "config for me
 set shell=/bin/bash\ -i
