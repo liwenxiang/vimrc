@@ -18,6 +18,13 @@ Bundle 'clang-complete'
 Bundle 'Visual-Mark'
 Bundle 'https://github.com/vim-scripts/cpp.vim--Skvirsky.git'
 Bundle 'https://github.com/scrooloose/nerdtree.git'
+Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
+
+"vimproc and unite are required by vimshell"
+"vimproc must execute make to use it""
+Bundle 'http://github.com/Shougo/vimproc'
+Bundle 'https://github.com/Shougo/unite.vim'
+Bundle 'https://github.com/Shougo/vimshell.vim.git'
 
 
 "required for bundle
@@ -25,6 +32,7 @@ filetype plugin indent on
 
 let g:clang_auto_select=1
 let g:clang_complete_copen=1
+
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
@@ -180,7 +188,6 @@ nmap * *N
 nmap mp "0p
 nmap mP "0P
 
-nmap , :
 nmap ,w :w<cr>
 
 "make so to insert new line and still in this line
@@ -226,7 +233,7 @@ noremap M J
 nmap <C-f> :FufCoverageFile <cr>
 nmap mf :FufFileWithCurrentBufferDir<CR>
 nmap mb :FufBuffer<CR>
-nmap <leader><leader> :b#<cr>
+""nmap <leader><leader> :b#<cr>
 nmap ff :NERDTreeToggle<RETURN>
 
 
