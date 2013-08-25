@@ -4,6 +4,9 @@ filetype on
 filetype off               
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+"required for bundle
+filetype plugin indent on   
+
 Bundle 'gmarik/vundle'
 
 "add for me
@@ -14,7 +17,6 @@ Bundle 'FuzzyFinder'
 Bundle 'a.vim'
 Bundle 'minibufexplorerpp'
 Bundle 'c.vim'
-Bundle 'clang-complete'
 Bundle 'Visual-Mark'
 Bundle 'https://github.com/vim-scripts/cpp.vim--Skvirsky.git'
 Bundle 'https://github.com/scrooloose/nerdtree.git'
@@ -26,12 +28,26 @@ Bundle 'http://github.com/Shougo/vimproc'
 Bundle 'https://github.com/Shougo/unite.vim'
 Bundle 'https://github.com/Shougo/vimshell.vim.git'
 
+if has("mac") 
+    Bundle 'clang-complete'
+    let g:clang_auto_select=1
+    let g:clang_complete_copen=1
+    nmap mq <esc>:call g:ClangUpdateQuickFix()<cr>
+else
+    Bundle 'https://github.com/vim-scripts/OmniCppComplete.git'
+    inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    let OmniCpp_MayCompleteScope = 0 " not autocomplete with ::
+    let OmniCpp_SelectFirstItem = 2 " select first item (but don't insert)
+    let OmniCpp_NamespaceSearch = 2 " search namespaces in this and included files
+    let OmniCpp_ShowPrototypeInAbbr = 1 " show function prototype in popup window
+    let OmniCpp_GlobalScopeSearch=1 " enable the global scope search
+    let OmniCpp_MayCompleteArray=0 "mkae -> not appear
+    let OmniCpp_DefaultNamespaces=["std"]
+    let OmniCpp_ShowScopeInAbbr=1 " show scope in abbreviation and remove the last column
+    let OmniCpp_ShowAccess=1
+endif
 
-"required for bundle
-filetype plugin indent on   
 
-let g:clang_auto_select=1
-let g:clang_complete_copen=1
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -65,6 +81,15 @@ set wildmode=longest:full,full
 set foldmethod=syntax
 set foldlevel=100  "启动vim时不要自动折叠代码
 
+"set cst "when  c-] tag match more than one , let me select
+set tags+=./tags
+set tags+=~/.tags/self_add_tags_store/cpp_tags/tags
+set tags+=~/.tags/self_add_tags_store/system_tags/tags
+set tags+=~/gaia_offline/_external/usr/local/tags
+set path+=./
+set path+=~/.tags/self_add_tags_store/cpp_tags/cpp_src/
+set path+=~/gaia_offline/_external/urs/local/include/
+
 autocmd BufNewFile,BufRead *.json set ft=javascript
 autocmd BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=markdown
 
@@ -83,7 +108,7 @@ function GetRealSrcDir()
     else
         return getcwd()
 endfunction
-"
+
 "set quickfix make and output msg format
 function FunForQuickfix(makeprgIn, makeefmIn)
   try
@@ -122,7 +147,6 @@ autocmd BufWinEnter * match MoreMsg /\<m[A-Z]\w*/
 
 command!BufCloseOthers call <SID>BufCloseOthers()
 command!BufCloseRights call <SID>BufCloseRights()
-command!Bash call <SID>NewBash()
 
 function! <SID>BufCloseOthers()
     let l:currentBufNum   = bufnr("%")
@@ -216,7 +240,6 @@ nmap mc :wa<CR>:call CppCheck()<CR>
 map <F5> <ESC>ma<CR>
 map <F6> <ESC>mu<CR>
 
-nmap mq <esc>:call g:ClangUpdateQuickFix()<cr>
 
 "quick fix use
 nmap <F3> :cp<cr>
@@ -230,7 +253,6 @@ nmap <C-X> :bd<cr>
 noremap M J
 
 "FufFind use
-nmap <C-f> :FufCoverageFile <cr>
 nmap mf :FufFileWithCurrentBufferDir<CR>
 nmap mb :FufBuffer<CR>
 ""nmap <leader><leader> :b#<cr>
