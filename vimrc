@@ -28,7 +28,8 @@ Bundle 'http://github.com/Shougo/vimproc'
 Bundle 'https://github.com/Shougo/unite.vim'
 Bundle 'https://github.com/Shougo/vimshell.vim.git'
 
-if has("mac") 
+let os=substitute(system('uname'), '\n', '', '')
+if os == 'Darwin' || os == 'Mac'
     Bundle 'clang-complete'
     let g:clang_auto_select=1
     let g:clang_complete_copen=1
@@ -81,7 +82,7 @@ set wildmode=longest:full,full
 set foldmethod=syntax
 set foldlevel=100  "启动vim时不要自动折叠代码
 
-"set cst "when  c-] tag match more than one , let me select
+set cst "when  c-] tag match more than one , let me select
 set tags+=./tags
 set tags+=~/.tags/self_add_tags_store/cpp_tags/tags
 set tags+=~/.tags/self_add_tags_store/system_tags/tags
