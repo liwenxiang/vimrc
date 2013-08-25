@@ -21,7 +21,7 @@ Bundle 'Visual-Mark'
 Bundle 'https://github.com/vim-scripts/cpp.vim--Skvirsky.git'
 Bundle 'https://github.com/scrooloose/nerdtree.git'
 Bundle 'https://github.com/Lokaltog/vim-easymotion.git'
-
+Bundle 'https://github.com/majutsushi/tagbar.git'
 "vimproc and unite are required by vimshell"
 "vimproc must execute make to use it""
 Bundle 'http://github.com/Shougo/vimproc'
@@ -48,8 +48,7 @@ else
     let OmniCpp_ShowAccess=1
 endif
 
-
-
+nmap <C-o> :TagbarToggle<cr>
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
