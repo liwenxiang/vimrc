@@ -4,14 +4,12 @@ filetype on
 filetype off               
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-"required for bundle
-filetype plugin indent on   
 
 Bundle 'gmarik/vundle'
 
 "add for me
 Bundle 'ctrlp.vim'
-Bundle 'AutoClose'
+"Bundle 'AutoClose'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'a.vim'
@@ -27,6 +25,7 @@ Bundle 'https://github.com/majutsushi/tagbar.git'
 Bundle 'http://github.com/Shougo/vimproc'
 Bundle 'https://github.com/Shougo/unite.vim'
 Bundle 'https://github.com/Shougo/vimshell.vim.git'
+Bundle 'https://github.com/Shougo/neocomplcache.vim.git'
 
 let os=substitute(system('uname'), '\n', '', '')
 if os == 'Darwin' || os == 'Mac'
@@ -48,9 +47,19 @@ else
     let OmniCpp_ShowAccess=1
 endif
 
+"required for bundle
+filetype plugin indent on   
+
 nmap <C-o> :TagbarToggle<cr>
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+imap <buffer> <C-l> <Plug>(vimshell_clear)
+
+
+let g:neocomplcache_enable_at_startup = 1
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
 
 "config for me
 set shell=/bin/bash\ -i
@@ -65,7 +74,6 @@ syntax enable
 set cindent
 "class public private not use space
 set cino=:g0
-set nocompatible
 syntax on
 set backspace=indent,eol,start
 set ruler
@@ -75,6 +83,7 @@ set softtabstop=4
 set incsearch
 set wildmenu
 set wildmode=longest:full,full
+set term=cons25
 
 
 "代码折叠, 命令 za
