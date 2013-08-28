@@ -24,8 +24,10 @@ Bundle 'https://github.com/majutsushi/tagbar.git'
 "vimproc must execute make to use it""
 Bundle 'http://github.com/Shougo/vimproc'
 Bundle 'https://github.com/Shougo/unite.vim'
-Bundle 'https://github.com/Shougo/vimshell.vim.git'
 Bundle 'https://github.com/Shougo/neocomplcache.vim.git'
+Bundle 'https://github.com/liwenxiang/vimshell.vim.git'
+Bundle 'https://github.com/xuhdev/SingleCompile.git'
+Bundle 'https://github.com/liwenxiang/vim-rooter.git'
 
 let os=substitute(system('uname'), '\n', '', '')
 if os == 'Darwin' || os == 'Mac'
@@ -52,9 +54,9 @@ filetype plugin indent on
 
 nmap <C-o> :TagbarToggle<cr>
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-imap <buffer> <C-l> <Plug>(vimshell_clear)
-
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+set wildignore+=*/_external/*,*.so,*.swp
 
 let g:neocomplcache_enable_at_startup = 1
 let g:acp_enableAtStartup = 0
@@ -83,7 +85,7 @@ set softtabstop=4
 set incsearch
 set wildmenu
 set wildmode=longest:full,full
-set term=cons25
+"set term=cons25
 
 
 "代码折叠, 命令 za
@@ -107,7 +109,7 @@ filetype plugin indent on
 set complete=.,w,b,u,t,i
 set completeopt=longest,menu
 
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 "when vim demo_project/demo_project , realsrcdir is demo_project/
 function GetRealSrcDir()
     let l:pwd = printf("%s/%s", getcwd(), system("pwd | awk -F\"/\" '{print $NF}'"))
