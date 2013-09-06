@@ -56,12 +56,7 @@ nmap <C-o> :TagbarToggle<cr>
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-set wildignore+=*/_external/*,*.so,*.swp
-
-let g:neocomplcache_enable_at_startup = 1
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_at_startup=1
 
 "config for me
 set shell=/bin/bash\ -i
@@ -85,23 +80,13 @@ set softtabstop=4
 set incsearch
 set wildmenu
 set wildmode=longest:full,full
-"set term=cons25
 
 
 "代码折叠, 命令 za
 set foldmethod=syntax
 set foldlevel=100  "启动vim时不要自动折叠代码
 
-set cst "when  c-] tag match more than one , let me select
-set tags+=./tags
-set tags+=~/.tags/self_add_tags_store/cpp_tags/tags
-set tags+=~/.tags/self_add_tags_store/system_tags/tags
-set tags+=~/gaia_offline/_external/usr/local/tags
-set path+=./
-set path+=~/.tags/self_add_tags_store/cpp_tags/cpp_src/
-set path+=~/gaia_offline/_external/urs/local/include/
 
-autocmd BufNewFile,BufRead *.json set ft=javascript
 autocmd BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=markdown
 
 "use for auto-complete tags
@@ -109,16 +94,11 @@ filetype plugin indent on
 set complete=.,w,b,u,t,i
 set completeopt=longest,menu
 
-"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-"when vim demo_project/demo_project , realsrcdir is demo_project/
-function GetRealSrcDir()
-    let l:pwd = printf("%s/%s", getcwd(), system("pwd | awk -F\"/\" '{print $NF}'"))
-    let l:dir =  strpart(l:pwd, 0, strlen(l:pwd)-1)
-    if isdirectory(l:dir)
-        return l:dir
-    else
-        return getcwd()
-endfunction
+set csto=1
+set cst "when  c-] tag match more than one , let me select
+set tags=tags,~/.tags/self_add_tags_store/cpp_tags/tags,~/gaia_offline/_external/usr/local/include/tags
+"cpp tags use http://www.vim.org/scripts/script.php?script_id=2358
+"or http://vim.wendal.net/scripts/script.php?script_id=2358
 
 "set quickfix make and output msg format
 function FunForQuickfix(makeprgIn, makeefmIn)
@@ -149,7 +129,7 @@ function CompileByScons()
 endfunction
 
 function CppCheck()
-  call FunForQuickfix(printf("cppcheck *.cpp --enable=all %s", GetRealSrcDir()), "\[%f:%l\]:\ %m")
+  call FunForQuickfix(printf("cppcheck *.cpp --enable=all .", ), "\[%f:%l\]:\ %m")
 endfunction
 
 "highlight class member, like mRecord
@@ -179,20 +159,11 @@ function! <SID>BufCloseRights()
         endif
     endfor
 endfunction
-"/home/adb/clean/clean/util/test/  return /home/adb/clean"
-function GetProjectDir()
-    let l:data = printf("%s", system(" pwd | awk 'BEGIN{ FS=\"/\";ORS=\"/\";} {for (i = 1; i <= NF; i++) {if ($i == $(i-1)) {x=i;}  }}END {for (j = 1; j < x; j++) { print $j }}'"))
-    return l:data
-endfunction
-function CdPath(dirpath)
-    execute("cd ".a:dirpath)
-endfunction
+
 
 "keep window position when switching buffers
-if v:version >= 700
-    au BufLeave * let b:winview = winsaveview()
-    au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
-endif
+au BufLeave * let b:winview = winsaveview()
+au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
 
 function! SuperTab()
     if (strpart(getline('.'),col('.')-2,1)=~'^\s\?$')
@@ -215,8 +186,6 @@ highlight Pmenu ctermfg=black ctermbg=lightgreen
 "key map
 nmap j gj
 nmap k gk
-" nmap <space> <C-D>
-" easy head end
 noremap H ^
 noremap L $
 nmap * *N
@@ -225,13 +194,6 @@ nmap mP "0P
 
 nmap ,w :w<cr>
 
-"make so to insert new line and still in this line
-nmap so o<ESC>k
-nmap sO O<ESC>j
-
-" Smart way to move between windows
-nmap <C-h> <C-W>h
-nmap <C-l> <C-W>l
 
 nmap - <C-W>-
 nmap + <C-W>+
@@ -240,22 +202,25 @@ nmap + <C-W>+
 nmap ,a :A<cr>
 
 
+function CdPath(dirpath)
+    execute("cd ".a:dirpath)
+endfunction
 nmap mcd :call CdPath('%:p:h')<cr>
-nmap mcr :call CdPath('%:p:h')<cr>:call CdPath(printf("%s", GetProjectDir()))<cr>
+nmap mcr <esc><Plug>RooterChangeToRootDirectory<cr>
 
 "compile use
 nmap ma :wa<CR>:call CompileByScons()<CR>
 nmap mu :wa<CR>:call CompileAndRunCurrentTestCodeByScons()<CR>
 nmap mua :wa<CR>:call CompileAndRunTestByScons()<CR>
 nmap mc :wa<CR>:call CppCheck()<CR>
-map <F5> <ESC>ma<CR>
+
 map <F6> <ESC>mu<CR>
 
+map <F5> <ESC>:!make_tags<cr><cr>
 
 "quick fix use
 nmap <F3> :cp<cr>
 nmap <F4> :cn<cr>
-
 "bufer use
 nmap <S-J> :bp<cr>
 nmap <S-K> :bn<cr>
