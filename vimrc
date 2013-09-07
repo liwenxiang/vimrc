@@ -63,6 +63,7 @@ let g:neocomplcache_enable_at_startup=1
 let g:solarized_termcolors = 256
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
+syntax enable
 set background=dark
 colorscheme solarized
 
@@ -75,11 +76,9 @@ set autoindent
 set expandtab
 set shiftwidth=4
 set hlsearch
-syntax enable
 set cindent
 "class public private not use space
 set cino=:g0
-syntax on
 set backspace=indent,eol,start
 set ruler
 set hidden
