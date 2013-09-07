@@ -28,6 +28,7 @@ Bundle 'https://github.com/Shougo/neocomplcache.vim.git'
 Bundle 'https://github.com/liwenxiang/vimshell.vim.git'
 Bundle 'https://github.com/xuhdev/SingleCompile.git'
 Bundle 'https://github.com/liwenxiang/vim-rooter.git'
+Bundle 'https://github.com/altercation/vim-colors-solarized.git'
 
 let os=substitute(system('uname'), '\n', '', '')
 if os == 'Darwin' || os == 'Mac'
@@ -58,6 +59,13 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:neocomplcache_enable_at_startup=1
 
+"In iTerm2, in Preferences -> Profiles -> Terminal, under "Terminal Emulation" you have "Report Terminal Type:" set to xterm-256color
+let g:solarized_termcolors = 256
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+set background=dark
+colorscheme solarized
+
 "config for me
 set shell=/bin/bash\ -i
 set nocp
@@ -75,7 +83,6 @@ syntax on
 set backspace=indent,eol,start
 set ruler
 set hidden
-set background=dark
 set softtabstop=4
 set incsearch
 set wildmenu
