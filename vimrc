@@ -59,6 +59,8 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:neocomplcache_enable_at_startup=1
 
+
+"set t_Co=256
 "In iTerm2, in Preferences -> Profiles -> Terminal, under "Terminal Emulation" you have "Report Terminal Type:" set to xterm-256color
 let g:solarized_termcolors = 256
 let g:solarized_visibility = "high"
@@ -66,6 +68,7 @@ let g:solarized_contrast = "high"
 syntax enable
 set background=dark
 colorscheme solarized
+
 
 "config for me
 set shell=/bin/bash\ -i
@@ -105,6 +108,28 @@ set cst "when  c-] tag match more than one , let me select
 set tags=tags,~/.tags/self_add_tags_store/cpp_tags/tags,~/gaia_offline/_external/usr/local/include/tags
 "cpp tags use http://www.vim.org/scripts/script.php?script_id=2358
 "or http://vim.wendal.net/scripts/script.php?script_id=2358
+
+
+"fun! MyFileComplete(ArgLead, CmdLine, CursorPos) 
+"    let ret=["file1", "file2", "file3"] 
+"    return ret 
+"endfun 
+
+let g:save_make_input="scons -j16 "
+function! InputForCompile()
+    try
+        call inputsave()
+        let l:save_makeprg=&makeprg
+        let l:make = printf("%s %s",g:save_make_input, expand("%:p:h"))
+        "let g:save_make_input=input("Compile:  ", l:make, "customlist,MyFileComplete")
+        let g:save_make_input=input("Compile:  ", l:make)
+        let &makeprg=g:save_make_input
+        :make
+    finally
+        let &makeprg=l:save_makeprg
+        call inputrestore()
+    endtry
+endfunction
 
 "set quickfix make and output msg format
 function FunForQuickfix(makeprgIn, makeefmIn)
@@ -244,5 +269,8 @@ nmap ff :NERDTreeToggle<RETURN>
 imap <C-a> <Home>
 imap <C-e> <End>
 imap <C-k> <ESC>lld$i
+
+cmap <C-a> <Home>
+cmap <C-e> <End>
 
 imap <tab> <C-R>=SuperTab()<CR>
