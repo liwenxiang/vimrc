@@ -13,8 +13,7 @@ Bundle 'ctrlp.vim'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'a.vim'
-Bundle 'minibufexplorerpp'
-Bundle 'c.vim'
+Bundle 'https://github.com/fholgado/minibufexpl.vim.git'
 Bundle 'Visual-Mark'
 Bundle 'https://github.com/vim-scripts/cpp.vim--Skvirsky.git'
 Bundle 'https://github.com/scrooloose/nerdtree.git'
@@ -24,11 +23,24 @@ Bundle 'https://github.com/majutsushi/tagbar.git'
 "vimproc must execute make to use it""
 Bundle 'http://github.com/Shougo/vimproc'
 Bundle 'https://github.com/Shougo/unite.vim'
-Bundle 'https://github.com/Shougo/neocomplcache.vim.git'
 Bundle 'https://github.com/liwenxiang/vimshell.vim.git'
-Bundle 'https://github.com/xuhdev/SingleCompile.git'
+"Bundle 'https://github.com/Shougo/neocomplcache.vim.git'
+"Bundle 'https://github.com/Valloric/YouCompleteMe.git'
 Bundle 'https://github.com/liwenxiang/vim-rooter.git'
 Bundle 'https://github.com/altercation/vim-colors-solarized.git'
+
+Bundle 'https://github.com/vim-scripts/EasyGrep.git'
+Bundle 'https://github.com/scrooloose/syntastic.git'
+
+"vimim use , remove all file in bundle/vimim/plugin but vimim.vim, that vimim
+"will use baidu or sogou cloud to support input
+"while input , use Ctrl-Shift-_ to get chinese input
+Bundle 'https://github.com/vimim/vimim.git'
+Bundle 'https://github.com/vim-scripts/Pydiction.git'
+"use :Tag /|
+Bundle 'https://github.com/godlygeek/tabular.git'
+Bundle 'https://github.com/vim-scripts/vcscommand.vim.git'
+Bundle 'https://github.com/tomtom/tcomment_vim.git'
 
 let os=substitute(system('uname'), '\n', '', '')
 if os == 'Darwin' || os == 'Mac'
@@ -69,6 +81,7 @@ syntax enable
 set background=dark
 colorscheme solarized
 
+let g:pydiction_location = '~/.vim/bundle/Pydiction/complete-dict'
 
 "config for me
 set shell=/bin/bash\ -i
@@ -132,7 +145,7 @@ function! InputForCompile()
 endfunction
 
 "set quickfix make and output msg format
-function FunForQuickfix(makeprgIn, makeefmIn)
+function! FunForQuickfix(makeprgIn, makeefmIn)
   try
     let save_makeprg=&makeprg
     let save_makeefm=&efm
@@ -147,19 +160,19 @@ function FunForQuickfix(makeprgIn, makeefmIn)
   endtry
 endfunction
 
-function CompileAndRunCurrentTestCodeByScons()
+function! CompileAndRunCurrentTestCodeByScons()
   call FunForQuickfix(printf("scons -u %s -j16", expand("%:p:h")), '%f:%l:%c:\ %m,%f:%l:\ %m,build/release64/%f:%l:%c:\ %m,build/release64/%f:%l:\ %m,%f\|%l\|,build/release64/%f:%s,%m:%l:Assertion,%sExpression:\ false,scons:\ building\ terminated\ because\ of\ errors.')
 endfunction
 
-function CompileAndRunTestByScons()
+function! CompileAndRunTestByScons()
   call FunForQuickfix("scons -u . -j16", '%f:%l:%c:\ %m,%f:%l:\ %m,build/release64/%f:%l:%c:\ %m,build/release64/%f:%l:\ %m,%f\|%l\|,build/release64/%f:%s,%m:%l:Assertion,%sExpression:\ false,scons:\ building\ terminated\ because\ of\ errors.')
 endfunction
 
-function CompileByScons()
+function! CompileByScons()
   call FunForQuickfix('scons -j16', '%f:%l:%c:\ %m,%f:%l:\ %m,build/release64/%f:%l:%c:\ %m,build/release64/%f:%l:\ %m,%f\|%l\|,build/release64/%f:%s,%m:%l:Assertion,%sExpression:\ false,scons:\ building\ terminated\ because\ of\ errors.,%sError%m')
 endfunction
 
-function CppCheck()
+function! CppCheck()
   call FunForQuickfix(printf("cppcheck *.cpp --enable=all .", ), "\[%f:%l\]:\ %m")
 endfunction
 
@@ -169,6 +182,11 @@ autocmd BufWinEnter * match MoreMsg /\<m[A-Z]\w*/
 
 command!BufCloseOthers call <SID>BufCloseOthers()
 command!BufCloseRights call <SID>BufCloseRights()
+command!Diff call <SID>DiffFunc()
+
+function! <SID>DiffFunc()
+    execute("VCSDiff")
+endfunction
 
 function! <SID>BufCloseOthers()
     let l:currentBufNum   = bufnr("%")
@@ -233,7 +251,7 @@ nmap + <C-W>+
 nmap ,a :A<cr>
 
 
-function CdPath(dirpath)
+function! CdPath(dirpath)
     execute("cd ".a:dirpath)
 endfunction
 nmap mcd :call CdPath('%:p:h')<cr>
