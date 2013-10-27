@@ -30,7 +30,7 @@ Bundle 'https://github.com/liwenxiang/vim-rooter.git'
 Bundle 'https://github.com/altercation/vim-colors-solarized.git'
 
 Bundle 'https://github.com/vim-scripts/EasyGrep.git'
-Bundle 'https://github.com/scrooloose/syntastic.git'
+"Bundle 'https://github.com/scrooloose/syntastic.git'
 
 "vimim use , remove all file in bundle/vimim/plugin but vimim.vim, that vimim
 "will use baidu or sogou cloud to support input
@@ -41,6 +41,13 @@ Bundle 'https://github.com/vim-scripts/Pydiction.git'
 Bundle 'https://github.com/godlygeek/tabular.git'
 Bundle 'https://github.com/vim-scripts/vcscommand.vim.git'
 Bundle 'https://github.com/tomtom/tcomment_vim.git'
+
+Bundle 'https://github.com/vim-scripts/SearchComplete.git'
+Bundle 'https://github.com/mbbill/echofunc.git'
+Bundle 'https://github.com/vim-scripts/MultipleSearch.git'
+
+Bundle 'https://github.com/terryma/vim-expand-region.git'
+Bundle 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
 
 let os=substitute(system('uname'), '\n', '', '')
 if os == 'Darwin' || os == 'Mac'
@@ -81,6 +88,7 @@ colorscheme solarized
 
 
 let g:pydiction_location = '~/.vim/bundle/Pydiction/complete-dict'
+
 
 "config for me
 set shell=/bin/bash\ -i
