@@ -13,7 +13,7 @@ Bundle 'ctrlp.vim'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'a.vim'
-Bundle 'https://github.com/fholgado/minibufexpl.vim.git'
+Bundle 'https://github.com/vim-scripts/minibufexpl.vim.git'
 Bundle 'Visual-Mark'
 Bundle 'https://github.com/vim-scripts/cpp.vim--Skvirsky.git'
 Bundle 'https://github.com/scrooloose/nerdtree.git'
@@ -24,13 +24,11 @@ Bundle 'https://github.com/majutsushi/tagbar.git'
 Bundle 'http://github.com/Shougo/vimproc'
 Bundle 'https://github.com/Shougo/unite.vim'
 Bundle 'https://github.com/liwenxiang/vimshell.vim.git'
-"Bundle 'https://github.com/Shougo/neocomplcache.vim.git'
-"Bundle 'https://github.com/Valloric/YouCompleteMe.git'
+Bundle 'https://github.com/Shougo/neocomplcache.vim.git'
 Bundle 'https://github.com/liwenxiang/vim-rooter.git'
 Bundle 'https://github.com/altercation/vim-colors-solarized.git'
 
 Bundle 'https://github.com/vim-scripts/EasyGrep.git'
-"Bundle 'https://github.com/scrooloose/syntastic.git'
 
 "vimim use , remove all file in bundle/vimim/plugin but vimim.vim, that vimim
 "will use baidu or sogou cloud to support input
@@ -41,13 +39,8 @@ Bundle 'https://github.com/vim-scripts/Pydiction.git'
 Bundle 'https://github.com/godlygeek/tabular.git'
 Bundle 'https://github.com/vim-scripts/vcscommand.vim.git'
 Bundle 'https://github.com/tomtom/tcomment_vim.git'
-
-Bundle 'https://github.com/vim-scripts/SearchComplete.git'
-Bundle 'https://github.com/mbbill/echofunc.git'
-Bundle 'https://github.com/vim-scripts/MultipleSearch.git'
-
 Bundle 'https://github.com/terryma/vim-expand-region.git'
-Bundle 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
+"Bundle 'https://github.com/octol/vim-cpp-enhanced-highlight.git'
 
 let os=substitute(system('uname'), '\n', '', '')
 if os == 'Darwin' || os == 'Mac'
@@ -56,27 +49,27 @@ if os == 'Darwin' || os == 'Mac'
     let g:clang_complete_copen=1
     nmap mq <esc>:call g:ClangUpdateQuickFix()<cr>
 else
-    Bundle 'https://github.com/vim-scripts/OmniCppComplete.git'
-    inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    let OmniCpp_MayCompleteScope = 0 " not autocomplete with ::
-    let OmniCpp_SelectFirstItem = 2 " select first item (but don't insert)
-    let OmniCpp_NamespaceSearch = 2 " search namespaces in this and included files
-    let OmniCpp_ShowPrototypeInAbbr = 1 " show function prototype in popup window
-    let OmniCpp_GlobalScopeSearch=1 " enable the global scope search
-    let OmniCpp_MayCompleteArray=0 "mkae -> not appear
-    let OmniCpp_DefaultNamespaces=["std"]
-    let OmniCpp_ShowScopeInAbbr=1 " show scope in abbreviation and remove the last column
-    let OmniCpp_ShowAccess=1
+    "Bundle 'https://github.com/vim-scripts/OmniCppComplete.git'
+    "inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    "let OmniCpp_MayCompleteScope = 0 " not autocomplete with ::
+    "let OmniCpp_SelectFirstItem = 2 " select first item (but don't insert)
+    "let OmniCpp_NamespaceSearch = 2 " search namespaces in this and included files
+    "let OmniCpp_ShowPrototypeInAbbr = 1 " show function prototype in popup window
+    "let OmniCpp_GlobalScopeSearch=1 " enable the global scope search
+    "let OmniCpp_MayCompleteArray=0 "mkae -> not appear
+    "let OmniCpp_DefaultNamespaces=["std"]
+    "let OmniCpp_ShowScopeInAbbr=1 " show scope in abbreviation and remove the last column
+    "let OmniCpp_ShowAccess=1
 endif
 
 "required for bundle
 filetype plugin indent on   
 
 nmap <C-o> :TagbarToggle<cr>
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:neocomplcache_enable_at_startup=1
+"let g:ctrlp_map = '<c-p>'
+"let g:ctrlp_cmd = 'CtrlPMixed'
+"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+"let g:neocomplcache_enable_at_startup=1
 
 
 "set t_Co=256
@@ -86,7 +79,7 @@ let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
 syntax enable
 set background=dark
-colorscheme solarized
+"colorscheme solarized
 
 let g:pydiction_location = '~/.vim/bundle/Pydiction/complete-dict'
 
@@ -121,7 +114,7 @@ autocmd BufNewFile,BufRead *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=ma
 
 "use for auto-complete tags
 filetype plugin indent on
-set complete=.,w,b,u,t,i
+set complete=.,w,b,u
 set completeopt=longest,menu
 
 set csto=1
