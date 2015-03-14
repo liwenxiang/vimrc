@@ -107,6 +107,7 @@ function! InputForCompile()
         execute ":redraw!"
         let &makeprg=g:save_make_input
         :make
+        :cw
     finally
         let &makeprg=l:save_makeprg
         call inputrestore()
